@@ -42,8 +42,11 @@ export default function TablaClasificacion({ categoriaId }: { categoriaId: strin
         .order('puntos', { ascending: false })
 
       if (!error && data) {
-        setFilas(data as FilaClasificacion[])
-      }
+        setFilas(data.map(item => ({
+            ...item,
+            equipo: Array.isArray(item.equipo) ? item.equipo[0] : item.equipo
+        })) as FilaClasificacion[])
+        }
       setCargando(false)
     }
 
